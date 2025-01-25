@@ -6,10 +6,15 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import LoginForm from "./LoginForm/LoginForm";
 import RegisterForm from "./RegisterForm/RegisterFrom";
 import loginLogo from "../../assets/login_logo.png";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
 function Login() {
   const [page, setPage] = useState("login");
+
+  const handleButtonSelect = (evt) => {
+    setPage();
+  };
 
   return (
     <>
