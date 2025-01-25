@@ -1,11 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import ReactInterface from "./Login/Login";
+import Login from "./Login/Login";
+// import "../blocks/App.css";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<ReactInterface />} />
+        <Route path="/" element={<Login />} />
       </Routes>
     </>
   );

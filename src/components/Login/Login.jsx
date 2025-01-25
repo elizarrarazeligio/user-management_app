@@ -1,35 +1,46 @@
-import { useState } from "react";
-import reactLogo from "../../assets/react.svg";
-import viteLogo from "/vite.svg";
-import "../../blocks/App.css";
+// import "../../blocks/App.css";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import LoginForm from "./LoginForm/LoginForm";
+import loginLogo from "../../assets/login_logo.png";
 
-function ReactInterface() {
-  const [count, setCount] = useState(0);
-
+function Login() {
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="d-flex flex-row vh-100">
+        <Container
+          fluid="sm"
+          className="mx-auto p-5 rounded-3 bg-light w-50 d-md-flex flex-column align-self-center"
+        >
+          <Row className="h-25 mb-4" sm={3}>
+            <img
+              src={loginLogo}
+              alt="login-logo"
+              className="object-fit-contain mx-auto"
+            />
+          </Row>
+          <Row className="justify-content-md-center h-10" md="auto">
+            <h1>Sign In</h1>
+          </Row>
+          <Row className="h-50">
+            <LoginForm />
+          </Row>
+          <Row className="w-25 h-25 mx-auto pt-3">
+            <ButtonGroup className="p-0">
+              <Button variant="dark" type="button" className="btn btn-sm">
+                Register
+              </Button>
+              <Button variant="secondary" type="button" className="btn btn-sm">
+                Sign In
+              </Button>
+            </ButtonGroup>
+          </Row>
+        </Container>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }
 
-export default ReactInterface;
+export default Login;
