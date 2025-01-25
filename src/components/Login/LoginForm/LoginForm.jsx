@@ -5,9 +5,9 @@ import "./LoginForm.css";
 
 function LoginForm() {
   return (
-    <Form className="d-md-flex flex-column w-75 mx-auto p-4">
-      <Form.Group className="mb-3" id="email">
-        <Form.Label>Email Address:</Form.Label>
+    <Form className="d-md-flex flex-column w-75 mx-auto p-1">
+      <Form.Group className="mb-4" id="email">
+        <Form.Label className="fw-bold">Email Address:</Form.Label>
         <InputGroup>
           <InputGroup.Text id="email">
             <i className="bi bi-person-circle"></i>
@@ -16,8 +16,8 @@ function LoginForm() {
         </InputGroup>
       </Form.Group>
 
-      <Form.Group className="mb-3" id="password">
-        <Form.Label>Password: </Form.Label>
+      <Form.Group className="mb-5" id="password">
+        <Form.Label className="fw-bold">Password: </Form.Label>
         <InputGroup>
           <InputGroup.Text id="password">
             <i className="bi bi-key-fill"></i>
@@ -26,7 +26,7 @@ function LoginForm() {
         </InputGroup>
       </Form.Group>
 
-      <Button variant="primary" type="submit">
+      <Button variant="primary" type="submit" className="btn btn-lg">
         Login
       </Button>
     </Form>
