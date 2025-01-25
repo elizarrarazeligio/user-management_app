@@ -4,9 +4,13 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import LoginForm from "./LoginForm/LoginForm";
+import RegisterForm from "./RegisterForm/RegisterFrom";
 import loginLogo from "../../assets/login_logo.png";
+import { useState } from "react";
 
 function Login() {
+  const [page, setPage] = useState("login");
+
   return (
     <>
       <div className="d-flex flex-row vh-100">
