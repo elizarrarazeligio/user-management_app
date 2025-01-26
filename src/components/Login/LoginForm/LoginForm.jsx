@@ -3,6 +3,10 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 
 function LoginForm() {
+  const handleLoginSubmit = (evt) => {
+    evt.preventDefault();
+  };
+
   return (
     <Form className="d-md-flex flex-column w-75 mx-auto p-1">
       <Form.Group className="mb-4" id="email">
@@ -25,7 +29,12 @@ function LoginForm() {
         </InputGroup>
       </Form.Group>
 
-      <Button variant="primary" type="submit" className="btn btn-lg">
+      <Button
+        variant="primary"
+        type="submit"
+        className="btn btn-lg"
+        onClick={(evt) => handleLoginSubmit(evt)}
+      >
         Login
       </Button>
     </Form>

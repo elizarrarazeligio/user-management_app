@@ -6,17 +6,21 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
 function RegisterForm() {
+  const handleRegisterSubmit = (evt) => {
+    evt.preventDefault();
+  };
+
   return (
     <Form className="d-md-flex flex-column w-75 mx-auto p-1">
       <Container className="p-0 mb-4">
         <Row>
           <Col>
             <Form.Label className="fw-bold">First Name:</Form.Label>
-            <Form.Control size="lg" type="email" placeholder="Name" />
+            <Form.Control size="lg" type="text" placeholder="Name" />
           </Col>
           <Col>
             <Form.Label className="fw-bold">Last Name:</Form.Label>
-            <Form.Control size="lg" type="email" placeholder="Last Name" />
+            <Form.Control size="lg" type="text" placeholder="Last Name" />
           </Col>
         </Row>
       </Container>
@@ -41,7 +45,12 @@ function RegisterForm() {
         </InputGroup>
       </Form.Group>
 
-      <Button variant="primary" type="submit" className="btn btn-lg">
+      <Button
+        variant="primary"
+        type="submit"
+        className="btn btn-lg"
+        onClick={(evt) => handleRegisterSubmit(evt)}
+      >
         Sign Up
       </Button>
     </Form>
