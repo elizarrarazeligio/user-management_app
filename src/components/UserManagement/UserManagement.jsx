@@ -11,11 +11,11 @@ function UserManagement() {
         className="mx-auto px-5 py-3 bg-light h-100 d-md-flex flex-column"
       >
         <Row>
-          <Toolbar></Toolbar>
+          <Toolbar />
         </Row>
 
         <Row>
-          <UsersTable></UsersTable>
+          <UsersTable />
         </Row>
       </Container>
     </div>

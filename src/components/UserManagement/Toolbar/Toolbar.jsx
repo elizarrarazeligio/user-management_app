@@ -7,7 +7,7 @@ function Toolbar() {
     <>
       <Navbar
         expand="lg"
-        className="bg-secondary border-secondary border border-3 px-2 py-1 d-flex justify-content-space-between rounded-2"
+        className="bg-secondary border-secondary border border-3 px-2 py-1 d-flex justify-content-between rounded-2"
       >
         <div className="d-flex">
           <Button className="btn btn-light btn-lg d-flex align-items-center px-1 py-1 me-1">
