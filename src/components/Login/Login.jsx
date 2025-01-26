@@ -3,8 +3,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
-import LoginForm from "./LoginForm/LoginForm";
-import RegisterForm from "./RegisterForm/RegisterForm";
 import loginLogo from "../../assets/login_logo.png";
 import { Link, Outlet } from "react-router-dom";
 import { useState } from "react";
