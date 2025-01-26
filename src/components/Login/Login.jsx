@@ -34,7 +34,7 @@ function Login() {
             <h1>{login ? "Register" : "Sign In"}</h1>
           </Row>
           <Row className="h-50">
-            <Outlet />
+            <Outlet setLogin={setLogin} />
           </Row>
           <Row className="w-25 h-25 mx-auto pt-3">
             <ButtonGroup className="p-0 d-flex">
@@ -49,7 +49,7 @@ function Login() {
                 </Button>
               </Link>
 
-              <Link to="/user-management_app" className="w-100">
+              <Link to="" className="w-100">
                 <Button
                   variant="secondary"
                   type="button"

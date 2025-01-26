@@ -1,10 +1,14 @@
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
+  const navigate = useNavigate();
+
   const handleLoginSubmit = (evt) => {
     evt.preventDefault();
+    navigate("/users");
   };
 
   return (
