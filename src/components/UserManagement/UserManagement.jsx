@@ -14,7 +14,7 @@ function UserManagement() {
           <Toolbar />
         </Row>
 
-        <Row>
+        <Row className="overflow-auto">
           <UsersTable />
         </Row>
       </Container>
