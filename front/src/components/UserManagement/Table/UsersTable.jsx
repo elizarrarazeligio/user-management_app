@@ -22,7 +22,7 @@ function UsersTable() {
                 value="1"
                 onChange={(e) => setCheckedAll(e.currentTarget.checked)}
               >
-                <i class="bi bi-caret-down-fill"></i>
+                <i className="bi bi-caret-down-fill"></i>
               </ToggleButton>
             </th>
             <th>Name</th>
@@ -32,7 +32,7 @@ function UsersTable() {
           </tr>
         </thead>
         <tbody>
-          {[1, 2, 3, 5, 6, 7, 8, 5, 3, 2, 3, 4, 1, 1, 1, 1, 11].map((user) => (
+          {Array.from({ length: 12 }).map((user) => (
             <UserRegister />
           ))}
         </tbody>
