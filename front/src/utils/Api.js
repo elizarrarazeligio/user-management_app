@@ -4,13 +4,28 @@ class Api {
     this._headers = headers;
   }
 
-  checkresponse() {
+  getUsers() {
     return fetch(`${this._baseUrl}/users`, { headers: this._headers }).then(
       (res) => {
         if (res.ok) return res.json();
         return Promise.reject(`Error: ${res.status}`);
       }
     );
+  }
+
+  registerUser(data) {
+    return fetch(`${this._baseUrl}/register`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        first_name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+      }),
+    }).then((res) => {
+      if (res.ok) return res.json();
+      return Promise.reject(`Error: ${res.status}`);
+    });
   }
 }
 

@@ -1,17 +1,10 @@
+import { useState } from "react";
 import UserRegisters from "./UserRegister/UserRegisters";
 import Table from "react-bootstrap/Table";
 import ToggleButton from "react-bootstrap/ToggleButton";
-import { useState, useEffect } from "react";
-import api from "../../../utils/Api.js";
 
-function UsersTable() {
+function UsersTable(props) {
   const [checkedAll, setCheckedAll] = useState(false);
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    console.log("Hola");
-    api.checkresponse().then((data) => setUsers(data));
-  }, [JSON.stringify(users)]);
 
   return (
     <>
@@ -38,7 +31,7 @@ function UsersTable() {
           </tr>
         </thead>
         <tbody>
-          <UserRegisters users={users} />
+          <UserRegisters users={props.users} />
         </tbody>
       </Table>
     </>

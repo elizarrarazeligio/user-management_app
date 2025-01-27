@@ -1,4 +1,5 @@
 import express from "express";
+import bodyParser from "body-parser";
 import cors from "cors";
 import router from "./routes.js";
 
@@ -6,6 +7,7 @@ const app = express();
 const { PORT = 3005 } = process.env;
 
 app.use(cors({ origin: "http://localhost:3000" }));
+app.use(bodyParser.json());
 app.use("/", router);
 
 app.listen(PORT, () => {

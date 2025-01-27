@@ -13,12 +13,17 @@ router.get("/users", (req, res) => {
 
 // register new user
 router.post("/register", (req, res) => {
-  const { first_name, last_name, email } = req.body;
-  const sql = `INSERT INTO Users (first_name, last_name, email) VALUE ('${first_name}', '${last_name}, '${email}')`;
+  const data = req.body;
+  const sql = `INSERT INTO Users (first_name, last_name, email) VALUES ('${data.first_name}', '${data.last_name}', '${data.email}');`;
 
-  db.query(sql, (err) => {
+  console.log(sql);
+  db.query(sql, (err, response) => {
     if (err) throw err;
-    res.send({ message: "success", response: "User registered succesfully." });
+    res.send({
+      status: "success",
+      message: "User registered successfully!",
+      response: req.body,
+    });
   });
 });
 

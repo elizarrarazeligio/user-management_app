@@ -3,7 +3,7 @@ import Toolbar from "./Toolbar/Toolbar";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 
-function UserManagement() {
+function UserManagement(props) {
   return (
     <div className="d-flex flex-row vh-100">
       <Container
@@ -15,7 +15,7 @@ function UserManagement() {
         </Row>
 
         <Row className="overflow-auto">
-          <UsersTable />
+          <UsersTable users={props.users} />
         </Row>
       </Container>
     </div>
