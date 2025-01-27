@@ -1,11 +1,17 @@
-import UserRegister from "./UserRegister/UserRegister";
+import UserRegisters from "./UserRegister/UserRegisters";
 import Table from "react-bootstrap/Table";
 import ToggleButton from "react-bootstrap/ToggleButton";
-import Form from "react-bootstrap/Form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import api from "../../../utils/Api.js";
 
 function UsersTable() {
   const [checkedAll, setCheckedAll] = useState(false);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    console.log("Hola");
+    api.checkresponse().then((data) => setUsers(data));
+  }, [JSON.stringify(users)]);
 
   return (
     <>
@@ -32,9 +38,7 @@ function UsersTable() {
           </tr>
         </thead>
         <tbody>
-          {Array.from({ length: 12 }).map((user) => (
-            <UserRegister />
-          ))}
+          <UserRegisters users={users} />
         </tbody>
       </Table>
     </>
