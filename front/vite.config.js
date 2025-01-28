@@ -8,7 +8,7 @@ const port = process.env.VITE_PORT || 3000;
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: "/user-management_app",
+  base: "/",
   server: {
     port: port,
   },
