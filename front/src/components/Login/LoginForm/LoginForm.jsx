@@ -1,7 +1,10 @@
 import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
+import loginLogo from "../../../assets/login_logo.png";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -12,36 +15,53 @@ function LoginForm() {
   };
 
   return (
-    <Form className="d-md-flex flex-column w-75 mx-auto p-1">
-      <Form.Group className="mb-4" id="email">
-        <Form.Label className="fw-bold">Email Address:</Form.Label>
-        <InputGroup>
-          <InputGroup.Text id="email">
-            <i className="bi bi-person-circle"></i>
-          </InputGroup.Text>
-          <Form.Control size="lg" type="email" placeholder="Your email" />
-        </InputGroup>
-      </Form.Group>
+    <Container>
+      <Row className="mb-4" sm={3}>
+        <img
+          src={loginLogo}
+          alt="login-logo"
+          className="object-fit-contain mx-auto"
+        />
+      </Row>
+      <Row className="justify-content-md-center mb-4" md="auto">
+        <h1>Sign In</h1>
+      </Row>
 
-      <Form.Group className="mb-5" id="password">
-        <Form.Label className="fw-bold">Password: </Form.Label>
-        <InputGroup>
-          <InputGroup.Text id="password">
-            <i className="bi bi-key-fill"></i>
-          </InputGroup.Text>
-          <Form.Control size="lg" type="password" placeholder="Your password" />
-        </InputGroup>
-      </Form.Group>
+      <Form className="d-md-flex flex-column w-75 mx-auto p-1">
+        <Form.Group className="mb-4" id="email">
+          <Form.Label className="fw-bold">Email Address:</Form.Label>
+          <InputGroup>
+            <InputGroup.Text id="email">
+              <i className="bi bi-person-circle"></i>
+            </InputGroup.Text>
+            <Form.Control size="lg" type="email" placeholder="Your email" />
+          </InputGroup>
+        </Form.Group>
 
-      <Button
-        variant="primary"
-        type="submit"
-        className="btn btn-lg"
-        onClick={(evt) => handleLoginSubmit(evt)}
-      >
-        Login
-      </Button>
-    </Form>
+        <Form.Group className="mb-5" id="password">
+          <Form.Label className="fw-bold">Password: </Form.Label>
+          <InputGroup>
+            <InputGroup.Text id="password">
+              <i className="bi bi-key-fill"></i>
+            </InputGroup.Text>
+            <Form.Control
+              size="lg"
+              type="password"
+              placeholder="Your password"
+            />
+          </InputGroup>
+        </Form.Group>
+
+        <Button
+          variant="primary"
+          type="submit"
+          className="btn btn-lg"
+          onClick={(evt) => handleLoginSubmit(evt)}
+        >
+          Login
+        </Button>
+      </Form>
+    </Container>
   );
 }
 

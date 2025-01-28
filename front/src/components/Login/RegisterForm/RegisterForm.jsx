@@ -29,6 +29,9 @@ function RegisterForm({ onFormSubmit }) {
       onSubmit={handleSubmit}
     >
       <Container className="p-0 mb-4">
+        <Row className="justify-content-md-center mb-4" md="auto">
+          <h1>Register</h1>
+        </Row>
         <Row>
           <Col>
             <Form.Label className="fw-bold">First Name:</Form.Label>
