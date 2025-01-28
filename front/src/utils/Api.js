@@ -5,14 +5,14 @@ class Api {
   }
 
   getUsers() {
-    return fetch(`${this._baseUrl}users`).then((res) => {
+    return fetch(`${this._baseUrl}/users`).then((res) => {
       if (res.ok) return res.json();
       return Promise.reject(`Error: ${res.status}`);
     });
   }
 
   registerUser(data) {
-    return fetch(`${this._baseUrl}register`, {
+    return fetch(`${this._baseUrl}/register`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
