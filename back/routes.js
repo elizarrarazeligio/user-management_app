@@ -103,4 +103,32 @@ router.patch("/users/check/all", (req, res) => {
   });
 });
 
+// PATCH - block/unblock users
+router.patch("/users", (req, res) => {
+  const { status } = req.body;
+  const sql = `UPDATE Users SET status = ${status} WHERE checked = true`;
+
+  db.query(sql, (err, response) => {
+    if (response.affectedRows == 0) {
+      res
+        .status(400)
+        .send({ status: "error", message: "Select at least one register." });
+    } else if (err) {
+      res
+        .status(400)
+        .send({ status: "error", message: "Unable to proceed action." });
+    } else if (status) {
+      res.send({
+        status: "success",
+        message: "User(s) successfully unblocked.",
+      });
+    } else {
+      res.send({
+        status: "success",
+        message: "User(s) successfully blocked.",
+      });
+    }
+  });
+});
+
 export default router;

@@ -66,6 +66,19 @@ class Api {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
+
+  setUserStatus(status) {
+    return fetch(`${this._baseUrl}/users`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        status,
+      }),
+    }).then((res) => {
+      if (res.ok) return res.json();
+      return Promise.reject(res.json());
+    });
+  }
 }
 
 const api = new Api({
