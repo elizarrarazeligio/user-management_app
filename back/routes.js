@@ -1,5 +1,6 @@
 import db from "./keys.js";
-import { Router } from "express";
+import { response, Router } from "express";
+import bcrypt from "bcrypt";
 
 const router = Router();
 
@@ -11,7 +12,7 @@ router.get("/users", (req, res) => {
   });
 });
 
-//GET - get and validate user by email and password
+// POST- get and validate user by email and password
 router.post("/users", (req, res) => {
   const { email, password } = req.body;
   const sql = `SELECT * FROM Users WHERE email = '${email}'`;
@@ -23,13 +24,14 @@ router.post("/users", (req, res) => {
     });
   }
 
-  db.query(sql, (err, response) => {
+  db.query(sql, async (err, response) => {
+    const passwordMatch = await bcrypt.compare(password, response[0].password);
     if (response.length === 0) {
       return res.status(404).send({
         status: "error",
         message: "User not registered, please register first.",
       });
-    } else if (response[0].password !== password) {
+    } else if (!passwordMatch) {
       return res.status(400).send({
         status: "error",
         message: "Invalid password.",
@@ -50,11 +52,12 @@ router.post("/users", (req, res) => {
 });
 
 // POST - register new user
-router.post("/register", (req, res) => {
+router.post("/register", async (req, res) => {
   const { first_name, last_name, email, password } = req.body;
+  const hashedPasword = await bcrypt.hash(password, 10);
   const sql = `
               INSERT INTO Users (first_name, last_name, email, password)
-              VALUES ('${first_name}', '${last_name}', '${email}', ${password});`;
+              VALUES ('${first_name}', '${last_name}', '${email}', '${hashedPasword}');`;
 
   if (!first_name || !last_name || !email || !password) {
     return res.status(400).send({

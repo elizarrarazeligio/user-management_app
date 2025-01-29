@@ -40,6 +40,8 @@ function RegisterForm({ onFormSubmit }) {
               placeholder="Name"
               name="name"
               ref={nameRef}
+              minLength={2}
+              maxLength={20}
             />
           </Col>
           <Col>
@@ -50,6 +52,8 @@ function RegisterForm({ onFormSubmit }) {
               placeholder="Last Name"
               name="last-name"
               ref={lastNameRef}
+              minLength={2}
+              maxLength={40}
             />
           </Col>
         </Row>
