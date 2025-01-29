@@ -11,7 +11,7 @@ function UserManagement(props) {
         className="mx-auto px-5 py-3 bg-light h-100 d-md-flex flex-column"
       >
         <Row>
-          <Toolbar users={props.users} />
+          <Toolbar />
         </Row>
 
         <Row className="overflow-auto">

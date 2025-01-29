@@ -2,16 +2,20 @@ import UserRegisters from "./UserRegister/UserRegisters";
 import Table from "react-bootstrap/Table";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import api from "../../../utils/Api";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { UsersContext } from "../../../contexts/UsersContext";
 
-function UsersTable(props) {
-  useEffect(() => {
-    api.getUsers().then((data) => props.setUsers(data));
-  }, [props.userChecked, props.checkedAll]);
+function UsersTable() {
+  const { userChecked, checkedAll, setUsers, handleCheckAll } =
+    useContext(UsersContext);
 
   useEffect(() => {
-    api.checkAllUsers(!props.checkedAll);
-  }, [props.checkedAll]);
+    api.getUsers().then((data) => setUsers(data));
+  }, [userChecked, checkedAll]);
+
+  useEffect(() => {
+    api.checkAllUsers(!checkedAll);
+  }, [checkedAll]);
 
   return (
     <>
@@ -24,9 +28,9 @@ function UsersTable(props) {
                 id="toggle-check"
                 type="checkbox"
                 variant="outline-primary"
-                checked={props.checkedAll}
+                checked={checkedAll}
                 value="1"
-                onChange={(e) => props.handleCheckAll(e)}
+                onChange={(e) => handleCheckAll(e)}
               >
                 <i className="bi bi-caret-down-fill"></i>
               </ToggleButton>
@@ -38,10 +42,7 @@ function UsersTable(props) {
           </tr>
         </thead>
         <tbody>
-          <UserRegisters
-            users={props.users}
-            handleCheckUser={props.handleCheckUser}
-          />
+          <UserRegisters />
         </tbody>
       </Table>
     </>

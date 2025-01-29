@@ -1,6 +1,10 @@
 import Form from "react-bootstrap/Form";
+import { useContext } from "react";
+import { UsersContext } from "../../../../contexts/UsersContext";
 
-function UserRegisters({ users, handleCheckUser }) {
+function UserRegisters() {
+  const { users, handleCheckUser } = useContext(UsersContext);
+
   return (
     <>
       {users.map((user) => (

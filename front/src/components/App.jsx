@@ -5,7 +5,8 @@ import Login from "./Login/Login";
 import RegisterForm from "./Login/RegisterForm/RegisterForm";
 import LoginForm from "./Login/LoginForm/LoginForm";
 import UserManagement from "./UserManagement/UserManagement";
-import { useState, useEffect } from "react";
+import { UsersContext } from "../contexts/UsersContext.js";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../utils/Api.js";
 
@@ -52,38 +53,37 @@ function App() {
 
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Login />}>
-          <Route
-            path="/"
-            element={<LoginForm onLoginSubmit={handleUserLogin} />}
-          />
-          <Route
-            path="/register"
-            element={<RegisterForm onFormSubmit={handleUserRegister} />}
-          />
-        </Route>
-        <Route
-          path="/users"
-          element={
-            <UserManagement
-              users={users}
-              checkedAll={checkedAll}
-              userChecked={userChecked}
-              handleCheckUser={handleCheckUser}
-              handleCheckAll={handleCheckAll}
-              setUsers={setUsers}
+      <UsersContext.Provider
+        value={{
+          users,
+          checkedAll,
+          userChecked,
+          setUsers,
+          handleCheckUser,
+          handleCheckAll,
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<Login />}>
+            <Route
+              path="/"
+              element={<LoginForm onLoginSubmit={handleUserLogin} />}
             />
-          }
+            <Route
+              path="/register"
+              element={<RegisterForm onFormSubmit={handleUserRegister} />}
+            />
+          </Route>
+          <Route path="/users" element={<UserManagement />} />
+        </Routes>
+        <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar={true}
+          closeOnClick
+          theme="colored"
         />
-      </Routes>
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar={true}
-        closeOnClick
-        theme="colored"
-      />
+      </UsersContext.Provider>
     </>
   );
 }
