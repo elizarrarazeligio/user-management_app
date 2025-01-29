@@ -2,8 +2,17 @@ import UsersTable from "./Table/UsersTable";
 import Toolbar from "./Toolbar/Toolbar";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import api from "../../utils/Api";
+import { toast } from "react-toastify";
 
-function UserManagement(props) {
+function UserManagement() {
+  const handleStatusClick = async (status) => {
+    await api
+      .setUserStatus(status)
+      .then((res) => toast.success(res.message))
+      .catch((err) => err.then((res) => toast.error(res.message)));
+  };
+
   return (
     <div className="d-flex flex-row vh-100">
       <Container
@@ -11,18 +20,11 @@ function UserManagement(props) {
         className="mx-auto px-5 py-3 bg-light h-100 d-md-flex flex-column"
       >
         <Row>
-          <Toolbar />
+          <Toolbar handleStatusClick={handleStatusClick} />
         </Row>
 
         <Row className="overflow-auto">
-          <UsersTable
-            users={props.users}
-            userChecked={props.userChecked}
-            checkedAll={props.checkedAll}
-            handleCheckUser={props.handleCheckUser}
-            handleCheckAll={props.handleCheckAll}
-            setUsers={props.setUsers}
-          />
+          <UsersTable handleStatusClick={handleStatusClick} />
         </Row>
       </Container>
     </div>

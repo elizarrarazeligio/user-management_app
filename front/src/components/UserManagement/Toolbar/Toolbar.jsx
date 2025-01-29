@@ -1,17 +1,8 @@
 import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import api from "../../../utils/Api";
-import { toast } from "react-toastify";
 
-function Toolbar() {
-  const handleStatusClick = async (status) => {
-    await api
-      .setUserStatus(status)
-      .then((res) => toast.success(res.message))
-      .catch((err) => err.then((res) => toast.error(res.message)));
-  };
-
+function Toolbar({ handleStatusClick }) {
   return (
     <>
       <Navbar

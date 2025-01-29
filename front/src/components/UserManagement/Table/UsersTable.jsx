@@ -5,13 +5,13 @@ import api from "../../../utils/Api";
 import { useEffect, useContext } from "react";
 import { UsersContext } from "../../../contexts/UsersContext";
 
-function UsersTable() {
+function UsersTable({ handleStatusClick }) {
   const { userChecked, checkedAll, setUsers, handleCheckAll } =
     useContext(UsersContext);
 
   useEffect(() => {
     api.getUsers().then((data) => setUsers(data));
-  }, [userChecked, checkedAll]);
+  }, [userChecked, checkedAll, handleStatusClick]);
 
   useEffect(() => {
     api.checkAllUsers(!checkedAll);
