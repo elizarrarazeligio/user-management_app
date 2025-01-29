@@ -5,6 +5,7 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 
 function UsersTable(props) {
   const [checkedAll, setCheckedAll] = useState(false);
+  // console.log(checkedAll);
 
   return (
     <>
@@ -31,7 +32,10 @@ function UsersTable(props) {
           </tr>
         </thead>
         <tbody>
-          <UserRegisters users={props.users} />
+          <UserRegisters
+            users={props.users}
+            handleCheckUser={props.handleCheckUser}
+          />
         </tbody>
       </Table>
     </>

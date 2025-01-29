@@ -40,6 +40,19 @@ class Api {
       return Promise.reject(res.json());
     });
   }
+
+  checkUser(id) {
+    return fetch(`${this._baseUrl}/users/check`, {
+      method: "PUT",
+      headers: this._headers,
+      body: JSON.stringify({
+        id,
+      }),
+    }).then((res) => {
+      if (res.ok) return res.json();
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
 }
 
 const api = new Api({

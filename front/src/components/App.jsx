@@ -12,7 +12,15 @@ import api from "../utils/Api.js";
 function App() {
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState([]);
+  const [userChecked, setUserChecked] = useState(false);
   const navigate = useNavigate();
+
+  const handleCheckUser = async (e) => {
+    await api.checkUser(e.currentTarget.id).then((res) => {
+      setUserChecked(!userChecked);
+      console.log(res);
+    });
+  };
 
   const handleUserRegister = async (data) => {
     await api
@@ -29,7 +37,7 @@ function App() {
     await api
       .loginUser(data)
       .then((res) => {
-        setCurrentUser(res);
+        setCurrentUser(res.response);
         toast.success(res.message);
       })
       .then(() => navigate("/users"))
@@ -38,7 +46,7 @@ function App() {
 
   useEffect(() => {
     api.getUsers().then((data) => setUsers(data));
-  }, []);
+  }, [JSON.stringify(users), userChecked]);
 
   return (
     <>
@@ -53,7 +61,12 @@ function App() {
             element={<RegisterForm onFormSubmit={handleUserRegister} />}
           />
         </Route>
-        <Route path="/users" element={<UserManagement users={users} />} />
+        <Route
+          path="/users"
+          element={
+            <UserManagement users={users} handleCheckUser={handleCheckUser} />
+          }
+        />
       </Routes>
       <ToastContainer
         position="top-center"

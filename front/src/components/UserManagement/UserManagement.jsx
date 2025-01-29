@@ -11,11 +11,14 @@ function UserManagement(props) {
         className="mx-auto px-5 py-3 bg-light h-100 d-md-flex flex-column"
       >
         <Row>
-          <Toolbar />
+          <Toolbar users={props.users} />
         </Row>
 
         <Row className="overflow-auto">
-          <UsersTable users={props.users} />
+          <UsersTable
+            users={props.users}
+            handleCheckUser={props.handleCheckUser}
+          />
         </Row>
       </Container>
     </div>
