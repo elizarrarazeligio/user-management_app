@@ -2,7 +2,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-function Toolbar({ handleStatusClick }) {
+function Toolbar({ handleStatusClick, handleDeleteUser }) {
   return (
     <>
       <Navbar
@@ -25,7 +25,11 @@ function Toolbar({ handleStatusClick }) {
           >
             <i className="bi bi-unlock-fill fs-6 text-secondary px-1"></i>
           </Button>
-          <Button className="btn btn-light btn-lg d-flex align-items-center px-1 py-1">
+          <Button
+            className="btn btn-light btn-lg d-flex align-items-center px-1 py-1"
+            type="button"
+            onClick={() => handleDeleteUser()}
+          >
             <i className="bi bi-trash-fill fs-6 text-danger px-1"></i>
           </Button>
         </div>

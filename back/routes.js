@@ -131,4 +131,26 @@ router.patch("/users", (req, res) => {
   });
 });
 
+// DELETE - delete selected users
+router.delete("/users", (req, res) => {
+  const sql = `DELETE FROM Users WHERE checked = true`;
+
+  db.query(sql, (err, response) => {
+    if (response.affectedRows == 0) {
+      res
+        .status(400)
+        .send({ status: "error", message: "Select at least one register." });
+    } else if (err) {
+      res
+        .status(400)
+        .send({ status: "error", message: "Unable to proceed action." });
+    } else {
+      res.send({
+        status: "success",
+        message: "User(s) successfully deleted.",
+      });
+    }
+  });
+});
+
 export default router;
