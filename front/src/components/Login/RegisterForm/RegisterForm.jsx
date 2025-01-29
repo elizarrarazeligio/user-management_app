@@ -5,10 +5,8 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
 
 function RegisterForm({ onFormSubmit }) {
-  const navigate = useNavigate();
   const nameRef = useRef();
   const lastNameRef = useRef();
   const emailRef = useRef();
@@ -22,7 +20,6 @@ function RegisterForm({ onFormSubmit }) {
       email: emailRef.current.value,
       password: passwordRef.current.value,
     });
-    // navigate("/");
   };
 
   return (

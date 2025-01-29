@@ -26,8 +26,14 @@ function App() {
   };
 
   const handleUserLogin = async (data) => {
-    await api.loginUser(data).then((res) => setCurrentUser(res));
-    console.log(currentUser);
+    await api
+      .loginUser(data)
+      .then((res) => {
+        setCurrentUser(res);
+        toast.success(res.message);
+      })
+      .then(() => navigate("/users"))
+      .catch((err) => err.then((res) => toast.error(res.message)));
   };
 
   useEffect(() => {

@@ -12,22 +12,41 @@ router.get("/users", (req, res) => {
 });
 
 //GET - get and validate user by email and password
-router.get("/users/:email", (req, res) => {
-  const email = req.params.email;
-  res.send(req.params);
-  const sql = `SELECT * FROM Users WHERE email = ${JSON.stringify(email)}`;
+router.post("/users", (req, res) => {
+  const { email, password } = req.body;
+  const sql = `SELECT * FROM Users WHERE email = '${email}'`;
 
-  // db.query(sql, (err, response) => {
-  //   if (err) throw err;
-  //   if (response.length === 0) {
-  //     res.status(404).send({
-  //       status: "error",
-  //       message: "User not registered, please register first.",
-  //     });
-  //   } else {
-  //     res.send(response);
-  //   }
-  // });
+  if (!email || !password) {
+    return res.status(400).send({
+      status: "error",
+      message: "Please provide email and password.",
+    });
+  }
+
+  db.query(sql, (err, response) => {
+    if (response.length === 0) {
+      return res.status(404).send({
+        status: "error",
+        message: "User not registered, please register first.",
+      });
+    } else if (response[0].password !== password) {
+      return res.status(400).send({
+        status: "error",
+        message: "Invalid password.",
+      });
+    } else if (err) {
+      return res.status(400).send({
+        status: "error",
+        message: "Invalid email.",
+      });
+    } else {
+      res.send({
+        status: "success",
+        message: "User logged in successfully!",
+        response: response[0],
+      });
+    }
+  });
 });
 
 // POST - register new user

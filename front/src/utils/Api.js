@@ -12,9 +12,16 @@ class Api {
   }
 
   loginUser(data) {
-    return fetch(`${this._baseUrl}/users/${data.email}`).then((res) => {
+    return fetch(`${this._baseUrl}/users`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+      }),
+    }).then((res) => {
       if (res.ok) return res.json();
-      return Promise.reject(`Error: ${res.status}`);
+      return Promise.reject(res.json());
     });
   }
 
