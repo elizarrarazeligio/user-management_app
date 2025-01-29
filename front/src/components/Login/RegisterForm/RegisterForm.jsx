@@ -12,6 +12,7 @@ function RegisterForm({ onFormSubmit }) {
   const nameRef = useRef();
   const lastNameRef = useRef();
   const emailRef = useRef();
+  const passwordRef = useRef();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -19,8 +20,9 @@ function RegisterForm({ onFormSubmit }) {
       first_name: nameRef.current.value,
       last_name: lastNameRef.current.value,
       email: emailRef.current.value,
+      password: passwordRef.current.value,
     });
-    navigate("/");
+    // navigate("/");
   };
 
   return (
@@ -40,7 +42,6 @@ function RegisterForm({ onFormSubmit }) {
               type="text"
               placeholder="Name"
               name="name"
-              required
               ref={nameRef}
             />
           </Col>
@@ -51,7 +52,6 @@ function RegisterForm({ onFormSubmit }) {
               type="text"
               placeholder="Last Name"
               name="last-name"
-              required
               ref={lastNameRef}
             />
           </Col>
@@ -69,7 +69,6 @@ function RegisterForm({ onFormSubmit }) {
             type="email"
             placeholder="Your email"
             name="email"
-            required
             ref={emailRef}
           />
         </InputGroup>
@@ -81,7 +80,13 @@ function RegisterForm({ onFormSubmit }) {
           <InputGroup.Text id="password">
             <i className="bi bi-key-fill"></i>
           </InputGroup.Text>
-          <Form.Control size="lg" type="password" placeholder="Your password" />
+          <Form.Control
+            size="lg"
+            type="password"
+            placeholder="Your password"
+            name="password"
+            ref={passwordRef}
+          />
         </InputGroup>
       </Form.Group>
 

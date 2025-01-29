@@ -11,6 +11,13 @@ class Api {
     });
   }
 
+  loginUser(data) {
+    return fetch(`${this._baseUrl}/users/${data.email}`).then((res) => {
+      if (res.ok) return res.json();
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
   registerUser(data) {
     return fetch(`${this._baseUrl}/register`, {
       method: "POST",
@@ -19,10 +26,11 @@ class Api {
         first_name: data.first_name,
         last_name: data.last_name,
         email: data.email,
+        password: data.password,
       }),
     }).then((res) => {
       if (res.ok) return res.json();
-      return Promise.reject(`Error: ${res.status}`);
+      return Promise.reject(res.json());
     });
   }
 }

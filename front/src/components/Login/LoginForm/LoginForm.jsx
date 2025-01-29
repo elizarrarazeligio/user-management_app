@@ -3,15 +3,19 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
-import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
 import loginLogo from "../../../assets/login_logo.png";
 
-function LoginForm() {
-  const navigate = useNavigate();
+function LoginForm({ onLoginSubmit }) {
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
-  const handleLoginSubmit = (evt) => {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
-    navigate("/users");
+    onLoginSubmit({
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    });
   };
 
   return (
@@ -34,7 +38,14 @@ function LoginForm() {
             <InputGroup.Text id="email">
               <i className="bi bi-person-circle"></i>
             </InputGroup.Text>
-            <Form.Control size="lg" type="email" placeholder="Your email" />
+            <Form.Control
+              size="lg"
+              type="email"
+              placeholder="Your email"
+              name="email"
+              ref={emailRef}
+              required
+            />
           </InputGroup>
         </Form.Group>
 
@@ -48,6 +59,8 @@ function LoginForm() {
               size="lg"
               type="password"
               placeholder="Your password"
+              name="password"
+              ref={passwordRef}
             />
           </InputGroup>
         </Form.Group>
@@ -56,7 +69,7 @@ function LoginForm() {
           variant="primary"
           type="submit"
           className="btn btn-lg"
-          onClick={(evt) => handleLoginSubmit(evt)}
+          onClick={(evt) => handleSubmit(evt)}
         >
           Login
         </Button>
