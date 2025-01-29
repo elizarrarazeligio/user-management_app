@@ -13,12 +13,18 @@ function App() {
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState([]);
   const [userChecked, setUserChecked] = useState(false);
+  const [checkedAll, setCheckedAll] = useState(false);
   const navigate = useNavigate();
 
+  const handleCheckAll = async (e) => {
+    await api
+      .checkAllUsers(!e.currentTarget.checked)
+      .then(() => setCheckedAll(!checkedAll));
+  };
+
   const handleCheckUser = async (e) => {
-    await api.checkUser(e.currentTarget.id).then((res) => {
+    await api.checkUser(e.currentTarget.id).then(() => {
       setUserChecked(!userChecked);
-      console.log(res);
     });
   };
 
@@ -44,10 +50,6 @@ function App() {
       .catch((err) => err.then((res) => toast.error(res.message)));
   };
 
-  useEffect(() => {
-    api.getUsers().then((data) => setUsers(data));
-  }, [JSON.stringify(users), userChecked]);
-
   return (
     <>
       <Routes>
@@ -64,7 +66,14 @@ function App() {
         <Route
           path="/users"
           element={
-            <UserManagement users={users} handleCheckUser={handleCheckUser} />
+            <UserManagement
+              users={users}
+              checkedAll={checkedAll}
+              userChecked={userChecked}
+              handleCheckUser={handleCheckUser}
+              handleCheckAll={handleCheckAll}
+              setUsers={setUsers}
+            />
           }
         />
       </Routes>

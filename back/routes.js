@@ -81,10 +81,21 @@ router.post("/register", async (req, res) => {
   });
 });
 
-// PATCH - check user
-router.put("/users/check", (req, res) => {
+// PATCH - check/uncheck user
+router.patch("/users/check", (req, res) => {
   const { id } = req.body;
   const sql = `UPDATE Users SET checked = NOT checked WHERE user_id = '${id}'`;
+
+  db.query(sql, (err, response) => {
+    if (err) throw err;
+    res.send(response);
+  });
+});
+
+// PATCH - check/uncheck all users
+router.patch("/users/check/all", (req, res) => {
+  const { status } = req.body;
+  const sql = `UPDATE Users SET checked = NOT checked WHERE checked = ${status}`;
 
   db.query(sql, (err, response) => {
     if (err) throw err;

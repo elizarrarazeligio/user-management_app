@@ -1,11 +1,17 @@
-import { useState } from "react";
 import UserRegisters from "./UserRegister/UserRegisters";
 import Table from "react-bootstrap/Table";
 import ToggleButton from "react-bootstrap/ToggleButton";
+import api from "../../../utils/Api";
+import { useEffect } from "react";
 
 function UsersTable(props) {
-  const [checkedAll, setCheckedAll] = useState(false);
-  // console.log(checkedAll);
+  useEffect(() => {
+    api.getUsers().then((data) => props.setUsers(data));
+  }, [props.userChecked, props.checkedAll]);
+
+  useEffect(() => {
+    api.checkAllUsers(!props.checkedAll);
+  }, [props.checkedAll]);
 
   return (
     <>
@@ -18,9 +24,9 @@ function UsersTable(props) {
                 id="toggle-check"
                 type="checkbox"
                 variant="outline-primary"
-                checked={checkedAll}
+                checked={props.checkedAll}
                 value="1"
-                onChange={(e) => setCheckedAll(e.currentTarget.checked)}
+                onChange={(e) => props.handleCheckAll(e)}
               >
                 <i className="bi bi-caret-down-fill"></i>
               </ToggleButton>

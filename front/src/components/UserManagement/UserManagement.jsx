@@ -17,7 +17,11 @@ function UserManagement(props) {
         <Row className="overflow-auto">
           <UsersTable
             users={props.users}
+            userChecked={props.userChecked}
+            checkedAll={props.checkedAll}
             handleCheckUser={props.handleCheckUser}
+            handleCheckAll={props.handleCheckAll}
+            setUsers={props.setUsers}
           />
         </Row>
       </Container>

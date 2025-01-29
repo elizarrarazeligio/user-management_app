@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
-import api from "../../../../utils/Api";
 
 function UserRegisters({ users, handleCheckUser }) {
   return (
@@ -22,7 +20,17 @@ function UserRegisters({ users, handleCheckUser }) {
           </td>
           <td>{user.email}</td>
           <td>{user.last_seen}</td>
-          <td>{user.user_id}</td>
+          <td>
+            {user.status ? (
+              <p className="my-1 bg-success text-white text-center w-75">
+                Active
+              </p>
+            ) : (
+              <p className="my-1 bg-danger text-white text-center w-75">
+                Blocked
+              </p>
+            )}
+          </td>
         </tr>
       ))}
     </>
