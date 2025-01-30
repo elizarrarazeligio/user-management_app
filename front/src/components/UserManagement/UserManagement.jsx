@@ -9,16 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function UserManagement() {
-  const {
-    setCurrentUser,
-    userChecked,
-    checkedAll,
-    setUsers,
-    currentUser,
-    users,
-    status,
-    deleteUser,
-  } = useContext(UsersContext);
+  const { setCurrentUser, currentUser, users } = useContext(UsersContext);
   const navigate = useNavigate();
 
   const getData = async () => {
@@ -34,14 +25,6 @@ function UserManagement() {
   useEffect(() => {
     getData();
   }, [currentUser]);
-
-  useEffect(() => {
-    api.getUsers().then((data) => setUsers(data));
-  }, [userChecked, checkedAll, status, deleteUser]);
-
-  useEffect(() => {
-    api.checkAllUsers(!checkedAll);
-  }, [checkedAll]);
 
   useEffect(() => {
     api
