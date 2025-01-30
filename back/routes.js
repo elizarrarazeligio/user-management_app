@@ -14,9 +14,9 @@ router.get("/users", (req, res) => {
   });
 });
 
-// GET - get user by token
-router.get("/users/user", (req, res) => {
-  const token = req.headers.authorization?.split(" ")[1];
+// POST - get user by token
+router.post("/users/user", (req, res) => {
+  const { token } = req.body;
   if (!token) {
     return res.status(401).send({
       status: "error",
@@ -61,7 +61,7 @@ router.post("/users", (req, res) => {
   }
 
   db.query(sql, async (err, response) => {
-    if (response.length === 0) {
+    if (response[0].length === 0) {
       return res.status(404).send({
         status: "error",
         message: "User not registered, please register first.",

@@ -14,9 +14,11 @@ class Api {
   getUserFromToken() {
     const token = sessionStorage.getItem("authToken");
     return fetch(`${this._baseUrl}/users/user`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        token: token,
+      }),
     }).then((res) => {
       if (res.ok) return res.json();
       return Promise.reject(res.json());

@@ -48,7 +48,6 @@ function UserManagement() {
       .getUserFromToken()
       .then((res) => {
         setCurrentUser(res.response);
-        console.log(res.response);
         let userInfo = {
           isLogged: true,
           data: res.response,
