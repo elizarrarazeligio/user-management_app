@@ -16,6 +16,7 @@ class Api {
     return fetch(`${this._baseUrl}/users/user`, {
       headers: {
         Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
     }).then((res) => {
       if (res.ok) return res.json();
