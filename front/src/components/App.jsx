@@ -12,9 +12,11 @@ import api from "../utils/Api.js";
 
 function App() {
   const [users, setUsers] = useState([]);
-  const [currentUser, setCurrentUser] = useState([]);
   const [userChecked, setUserChecked] = useState(false);
   const [checkedAll, setCheckedAll] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [status, setStatus] = useState(null);
+  const [deleteUser, setDeleteUser] = useState(null);
   const navigate = useNavigate();
 
   const handleCheckAll = async (e) => {
@@ -44,10 +46,27 @@ function App() {
     await api
       .loginUser(data)
       .then((res) => {
-        setCurrentUser(res.response);
+        const token = res.token;
+        sessionStorage.setItem("authToken", token);
         toast.success(res.message);
       })
       .then(() => navigate("/users"))
+      .catch((err) => err.then((res) => toast.error(res.message)));
+  };
+
+  const handleStatusClick = async (status) => {
+    setStatus([status]);
+    await api
+      .setUserStatus(status)
+      .then((res) => toast.success(res.message))
+      .catch((err) => err.then((res) => toast.error(res.message)));
+  };
+
+  const handleDeleteUser = async () => {
+    setDeleteUser([]);
+    await api
+      .deleteUser()
+      .then((res) => toast.success(res.message))
       .catch((err) => err.then((res) => toast.error(res.message)));
   };
 
@@ -56,11 +75,17 @@ function App() {
       <UsersContext.Provider
         value={{
           users,
+          status,
+          currentUser,
           checkedAll,
           userChecked,
+          deleteUser,
           setUsers,
           handleCheckUser,
           handleCheckAll,
+          setCurrentUser,
+          handleStatusClick,
+          handleDeleteUser,
         }}
       >
         <Routes>

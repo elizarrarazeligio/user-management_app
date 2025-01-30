@@ -3,22 +3,60 @@ import Toolbar from "./Toolbar/Toolbar";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import api from "../../utils/Api";
+import { useContext, useEffect } from "react";
+import { UsersContext } from "../../contexts/UsersContext";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function UserManagement() {
-  const handleStatusClick = async (status) => {
-    await api
-      .setUserStatus(status)
-      .then((res) => toast.success(res.message))
-      .catch((err) => err.then((res) => toast.error(res.message)));
+  const {
+    setCurrentUser,
+    userChecked,
+    checkedAll,
+    setUsers,
+    currentUser,
+    users,
+    status,
+    deleteUser,
+  } = useContext(UsersContext);
+  const navigate = useNavigate();
+
+  const getData = async () => {
+    const userInfo = await JSON.parse(sessionStorage.getItem("userInfo"));
+    if (!userInfo.data.status || !userInfo) {
+      sessionStorage.clear();
+      setCurrentUser(null);
+      navigate("/");
+      toast.error("Access no longer available.");
+    }
   };
 
-  const handleDeleteUser = async () => {
-    await api
-      .deleteUser()
-      .then((res) => toast.success(res.message))
-      .catch((err) => err.then((res) => toast.error(res.message)));
-  };
+  useEffect(() => {
+    getData();
+  }, [currentUser]);
+
+  useEffect(() => {
+    api.getUsers().then((data) => setUsers(data));
+  }, [userChecked, checkedAll, status, deleteUser]);
+
+  useEffect(() => {
+    api.checkAllUsers(!checkedAll);
+  }, [checkedAll]);
+
+  useEffect(() => {
+    api
+      .getUserFromToken()
+      .then((res) => {
+        setCurrentUser(res.response);
+        console.log(res.response);
+        let userInfo = {
+          isLogged: true,
+          data: res.response,
+        };
+        sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
+      })
+      .catch((err) => err.then((res) => console.log(res)));
+  }, [users]);
 
   return (
     <div className="d-flex flex-row vh-100">
@@ -27,17 +65,11 @@ function UserManagement() {
         className="mx-auto px-5 py-3 bg-light h-100 d-md-flex flex-column"
       >
         <Row>
-          <Toolbar
-            handleStatusClick={handleStatusClick}
-            handleDeleteUser={handleDeleteUser}
-          />
+          <Toolbar />
         </Row>
 
         <Row className="overflow-auto">
-          <UsersTable
-            handleStatusClick={handleStatusClick}
-            handleDeleteUser={handleDeleteUser}
-          />
+          <UsersTable />
         </Row>
       </Container>
     </div>

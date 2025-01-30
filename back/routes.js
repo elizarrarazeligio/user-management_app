@@ -1,14 +1,50 @@
 import db from "./keys.js";
 import { response, Router } from "express";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const router = Router();
+const JWT_SECRET = "c51a779b8627df8f36e5447ea7c689b468f76eed9a599411";
 
 // GET - get users
 router.get("/users", (req, res) => {
   db.query("SELECT * FROM Users", (err, response) => {
     if (err) throw err;
     res.send(response);
+  });
+});
+
+// GET - get user by token
+router.get("/users/user", (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) {
+    return res.status(401).send({
+      status: "error",
+      message: "Forbidden access, token not provided.",
+    });
+  }
+
+  const trimmedToken = token.trim();
+  const decodedToken = jwt.verify(trimmedToken, JWT_SECRET);
+  const sql = `SELECT user_id, email, status FROM Users WHERE email = '${decodedToken.email}'`;
+
+  db.query(sql, (err, response) => {
+    if (response[0].length === 0) {
+      return res.status(404).send({
+        status: "error",
+        message: "User not registered, please register first.",
+      });
+    } else if (err) {
+      return res.status(400).send({
+        status: "error",
+        message: "Invalid token.",
+      });
+    } else {
+      res.send({
+        status: "success",
+        response: response[0],
+      });
+    }
   });
 });
 
@@ -25,13 +61,23 @@ router.post("/users", (req, res) => {
   }
 
   db.query(sql, async (err, response) => {
-    const passwordMatch = await bcrypt.compare(password, response[0].password);
     if (response.length === 0) {
       return res.status(404).send({
         status: "error",
         message: "User not registered, please register first.",
       });
-    } else if (!passwordMatch) {
+    }
+
+    const passwordMatch = await bcrypt.compare(password, response[0].password);
+    const token = jwt.sign(
+      {
+        id: response[0].user_id,
+        email: response[0].email,
+      },
+      JWT_SECRET,
+      { expiresIn: "10m" }
+    );
+    if (!passwordMatch) {
       return res.status(400).send({
         status: "error",
         message: "Invalid password.",
@@ -41,11 +87,17 @@ router.post("/users", (req, res) => {
         status: "error",
         message: "Invalid email.",
       });
+    } else if (response[0].status == 0) {
+      return res.status(400).send({
+        status: "error",
+        message: "Blocked account.",
+      });
     } else {
       res.send({
         status: "success",
         message: "User logged in successfully!",
         response: response[0],
+        token: token,
       });
     }
   });

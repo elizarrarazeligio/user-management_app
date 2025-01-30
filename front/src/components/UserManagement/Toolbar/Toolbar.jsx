@@ -1,8 +1,12 @@
 import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { useContext } from "react";
+import { UsersContext } from "../../../contexts/UsersContext";
 
-function Toolbar({ handleStatusClick, handleDeleteUser }) {
+function Toolbar() {
+  const { handleStatusClick, handleDeleteUser } = useContext(UsersContext);
+
   return (
     <>
       <Navbar

@@ -11,6 +11,18 @@ class Api {
     });
   }
 
+  getUserFromToken() {
+    const token = sessionStorage.getItem("authToken");
+    return fetch(`${this._baseUrl}/users/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      if (res.ok) return res.json();
+      return Promise.reject(res.json());
+    });
+  }
+
   loginUser(data) {
     return fetch(`${this._baseUrl}/users`, {
       method: "POST",
