@@ -55,7 +55,7 @@ function App() {
   };
 
   const handleStatusClick = async (status) => {
-    setStatus([1]);
+    setStatus([status]);
     await api
       .setUserStatus(status)
       .then((res) => toast.success(res.message))
