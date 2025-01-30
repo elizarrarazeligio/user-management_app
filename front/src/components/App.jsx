@@ -63,7 +63,7 @@ function App() {
   };
 
   const handleDeleteUser = async () => {
-    setDeleteUser([]);
+    setDeleteUser([1]);
     await api
       .deleteUser()
       .then((res) => toast.success(res.message))
