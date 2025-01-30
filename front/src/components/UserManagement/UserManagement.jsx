@@ -48,14 +48,13 @@ function UserManagement() {
       .getUserFromToken()
       .then((res) => {
         setCurrentUser(res.response);
-        console.log(res.response);
         let userInfo = {
           isLogged: true,
           data: res.response,
         };
         sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
       })
-      .catch((err) => err.then((res) => console.log(res)));
+      .catch((err) => err.then((res) => toast.error(res.message)));
   }, [users]);
 
   return (

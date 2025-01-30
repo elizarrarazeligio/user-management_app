@@ -55,19 +55,19 @@ function App() {
   };
 
   const handleStatusClick = async (status) => {
-    setStatus([1]);
     await api
       .setUserStatus(status)
       .then((res) => toast.success(res.message))
-      .catch((err) => err.then((res) => toast.error(res.message)));
+      .catch((err) => err.then((res) => toast.error(res.message)))
+      .finally(setStatus([status]));
   };
 
   const handleDeleteUser = async () => {
-    setDeleteUser([1]);
     await api
       .deleteUser()
       .then((res) => toast.success(res.message))
-      .catch((err) => err.then((res) => toast.error(res.message)));
+      .catch((err) => err.then((res) => toast.error(res.message)))
+      .finally(setDeleteUser([1]));
   };
 
   return (
